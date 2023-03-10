@@ -12,7 +12,7 @@ pipeline{
                 }
             stage("package"){
                 steps{
-                        scripts{echo "zip pem and html"
+                        script{echo "zip pem and html"
                         sh "mkdir utils"
                         sh "mv home.html utils"
                         sh "mv mumbai.pem utils"}
@@ -22,7 +22,7 @@ pipeline{
             stage("ec2"){
                 steps{
                     unzipper()
-                    scripts{
+                    script{
                         sh "ls -al"
                     }
                 }
