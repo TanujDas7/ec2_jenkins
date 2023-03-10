@@ -12,31 +12,12 @@ pipeline{
                 }
             stage("package"){
                 steps{
-                        echo "zip pem and html"
+                        scripts{echo "zip pem and html"
                         echo "$WORKSPACE"
                         sh "mkdir utils"
                         sh "mv home.html utils"
-                        sh "mv mumbai.pem utils"
-                        String zipFileName = "utils.zip"
-                        String inputDir = "utils"
-
-                        ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipFileName))
-                        new File(inputDir).eachFile() { file ->
-                            if (!file.isFile()) {
-                                return
-                            }
-
-                            output.putNextEntry(new ZipEntry(file.name.toString())) // Create the name of the entry in the ZIP
-
-                            InputStream input = new FileInputStream(file);
-
-                            // Stream the document data to the ZIP
-                            Files.copy(input, output);
-                            output.closeEntry(); // End of current document in ZIP
-                            input.close()
-                        }
-                        output.close();
-
+                        sh "mv mumbai.pem utils"}
+                        step{zipper()}
                     }
                 }
             stage("ec2"){
@@ -76,4 +57,26 @@ pipeline{
                 }
             }
     }
+}
+
+def zipper(){
+    String zipFileName = "utils.zip"
+    String inputDir = "utils"
+
+    ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipFileName))
+    new File(inputDir).eachFile() { file ->
+        if (!file.isFile()) {
+            return
+        }
+
+        output.putNextEntry(new ZipEntry(file.name.toString())) // Create the name of the entry in the ZIP
+
+        InputStream input = new FileInputStream(file);
+
+        // Stream the document data to the ZIP
+        Files.copy(input, output);
+        output.closeEntry(); // End of current document in ZIP
+        input.close()
+    }
+    output.close();
 }
