@@ -13,7 +13,6 @@ pipeline{
             stage("package"){
                 steps{
                         scripts{echo "zip pem and html"
-                        echo "$WORKSPACE"
                         sh "mkdir utils"
                         sh "mv home.html utils"
                         sh "mv mumbai.pem utils"}
@@ -22,38 +21,10 @@ pipeline{
                 }
             stage("ec2"){
                 steps{
-                    echo "write into ec2"
-                    String zipFileName = "utils.zip"  
-                    def outputDir = "zip"
-                    byte[] buffer = new byte[1024]
-                    ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFileName))
-                    ZipEntry zipEntry = zis.getNextEntry()
-                    while (zipEntry != null) {
-                        File newFile = new File(outputDir+ File.separator, zipEntry.name)
-                        if (zipEntry.isDirectory()) {
-                            if (!newFile.isDirectory() && !newFile.mkdirs()) {
-                                throw new IOException("Failed to create directory " + newFile)
-                            }
-                        } else {
-                            // fix for Windows-created archives
-                            File parent = newFile.parentFile
-                            if (!parent.isDirectory() && !parent.mkdirs()) {
-                                throw new IOException("Failed to create directory " + parent)
-                            }
-                            // write file content
-                            FileOutputStream fos = new FileOutputStream(newFile)
-                            int len = 0
-                            while ((len = zis.read(buffer)) > 0) {
-                                fos.write(buffer, 0, len)
-                            }
-                            fos.close()
-                        }
-                    zipEntry = zis.getNextEntry()
+                    step{unzipper()}
+                    scripts{
+                        sh "ls -al"
                     }
-                    zis.closeEntry()
-                    zis.close()
-
-                    sh "ls -al"
                 }
             }
     }
@@ -79,4 +50,36 @@ def zipper(){
         input.close()
     }
     output.close();
+}
+
+def unzipper(){
+    String zipFileName = "utils.zip"  
+    def outputDir = "zip"
+    byte[] buffer = new byte[1024]
+    ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFileName))
+    ZipEntry zipEntry = zis.getNextEntry()
+    while (zipEntry != null) {
+        File newFile = new File(outputDir+ File.separator, zipEntry.name)
+        if (zipEntry.isDirectory()) {
+            if (!newFile.isDirectory() && !newFile.mkdirs()) {
+                throw new IOException("Failed to create directory " + newFile)
+            }
+        } else {
+            // fix for Windows-created archives
+            File parent = newFile.parentFile
+            if (!parent.isDirectory() && !parent.mkdirs()) {
+                throw new IOException("Failed to create directory " + parent)
+            }
+            // write file content
+            FileOutputStream fos = new FileOutputStream(newFile)
+            int len = 0
+            while ((len = zis.read(buffer)) > 0) {
+                fos.write(buffer, 0, len)
+            }
+            fos.close()
+        }
+    zipEntry = zis.getNextEntry()
+    }
+    zis.closeEntry()
+    zis.close()
 }
