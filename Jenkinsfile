@@ -12,7 +12,7 @@ pipeline{
         stage("package"){
             steps{
                 echo "html file content"
-                html_builder
+                html_builder()
                 sh "cat index.html"
 
             }
