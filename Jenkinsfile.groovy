@@ -19,7 +19,7 @@ pipeline{
                 steps{
                     echo "unzip files from utils"
                     script{
-                        sh "aws configure --help"
+                        sh "aws --help"
                         // sh "chmod 400 mumbai.pem"
                         // sh "ssh -i mumbai.pem ec2-user@"
                     }
