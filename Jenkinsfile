@@ -12,6 +12,9 @@ pipeline{
         stage("package"){
             steps{
                 echo "html file content"
+                html_builder
+                sh "cat index.html"
+
             }
         }
         stage("ec2"){
@@ -22,3 +25,14 @@ pipeline{
         }
     }
 }
+
+def html_builder = new groovy.xml.MarkupBuilder()
+index.html {     
+  head {         
+    title"Home"     
+  }     
+  body {
+    h1"home page"     
+    p"lorem ipsum"
+  } 
+}​
