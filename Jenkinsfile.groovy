@@ -13,7 +13,7 @@ pipeline{
             stage("package"){
                 steps{
                         script{echo "zip pem and html"
-                        sh "mkdir utils"
+                        sh "mkdir -p utils"
                         sh "mv home.html utils"
                         sh "mv mumbai.pem utils"}
                         zipper()
