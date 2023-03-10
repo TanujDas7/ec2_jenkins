@@ -17,6 +17,7 @@ pipeline{
                     echo "html file content"
                     script{
                         echo "$pwd"
+                        echo "$WORKSPACE"
                     }
 
                 }
