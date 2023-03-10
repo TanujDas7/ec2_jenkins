@@ -12,20 +12,20 @@ pipeline{
         stage("package"){
             steps{
                 echo "html file content"
-                def printer = new StringWriter()
-                def html_builder = new groovy.xml.MarkupBuilder()
-                    index.html {     
-                    head {         
-                        title"Home"     
-                    }     
-                    body {
-                        h1"home page"     
-                        p"lorem ipsum"
-                    } 
-                    }
-                println printer.toString()
-                sh "printer.toString() > index.html"
-                cat "index.html"
+                // def printer = new StringWriter()
+                // def html_builder = new groovy.xml.MarkupBuilder()
+                //     index.html {     
+                //     head {         
+                //         title"Home"     
+                //     }     
+                //     body {
+                //         h1"home page"     
+                //         p"lorem ipsum"
+                //     } 
+                //     }
+                // println printer.toString()
+                // sh "printer.toString() > index.html"
+                // cat "index.html"
 
             }
         }
