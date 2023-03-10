@@ -17,6 +17,12 @@ pipeline{
                         sh "mv home.html utils"
                         sh "mv mumbai.pem utils"}
                         zipper()
+                        script{
+                            sh "cd utils"
+                            sh "ls"
+                            sh "cd .."
+                        }
+                        
                     }
                 }
             stage("ec2"){
@@ -33,23 +39,19 @@ pipeline{
 def zipper(){
     String zipFileName = "utils.zip"
     String inputDir = "utils"
-
-    ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipFileName))
-    new File(inputDir).eachFile() { file ->
-        if (!file.isFile()) {
-            return
-        }
-
-        output.putNextEntry(new ZipEntry(file.name.toString())) // Create the name of the entry in the ZIP
-
-        InputStream input = new FileInputStream(file);
-
-        // Stream the document data to the ZIP
-        Files.copy(input, output);
-        output.closeEntry(); // End of current document in ZIP
-        input.close()
+    ZipOutputStream zipFile = new ZipOutputStream(new FileOutputStream(zipFileName))  
+    new File(inputDir).eachFile() { file -> 
+    //check if file
+    if (file.isFile()){
+        zipFile.putNextEntry(new ZipEntry(file.name))
+        def buffer = new byte[file.size()]  
+        file.withInputStream { 
+        zipFile.write(buffer, 0, it.read(buffer))  
+        }  
+        zipFile.closeEntry()
     }
-    output.close();
+    }  
+    zipFile.close()  
 }
 
 def unzipper(){
