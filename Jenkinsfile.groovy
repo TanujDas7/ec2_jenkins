@@ -16,12 +16,12 @@ pipeline{
                         sh "mkdir utils"
                         sh "mv home.html utils"
                         sh "mv mumbai.pem utils"}
-                        step{zipper()}
+                        zipper()
                     }
                 }
             stage("ec2"){
                 steps{
-                    step{unzipper()}
+                    unzipper()
                     scripts{
                         sh "ls -al"
                     }
