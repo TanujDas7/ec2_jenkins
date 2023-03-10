@@ -19,8 +19,8 @@ pipeline{
                 steps{
                     echo "unzip files from utils"
                     script{
-                        sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
-                        sh 'unzip awscliv2.zip'
+                        // sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
+                        // sh 'unzip awscliv2.zip'
                         sh "./aws/install"
                         sh "aws configure --help"
                         // sh "chmod 400 mumbai.pem"
