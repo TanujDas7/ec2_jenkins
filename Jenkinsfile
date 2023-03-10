@@ -2,14 +2,11 @@ agent = "${env.AGENT_LABEL}";
 
 pipeline{
     agent{ node{label "${agent}"}}
-        stages{
+        // stages{
             stage("code checkout"){
                 steps{
-                    script{
-                        echo "git clone"
-                        git branch: 'master', credentialsId: 'd9571958-53a3-4fc3-b83a-d9807504e93d', url: 'https://github.com/TanujDas7/job.git'
-                    }
-                    
+                    echo "git clone"
+                    git branch: 'master', credentialsId: 'd9571958-53a3-4fc3-b83a-d9807504e93d', url: 'https://github.com/TanujDas7/job.git'
                 }
             }
             stage("package"){
@@ -28,5 +25,5 @@ pipeline{
                     // sh "sh scripts.sh"
                 }
             }
-    }
+    // }
 }​
