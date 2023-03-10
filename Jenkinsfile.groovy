@@ -2,7 +2,7 @@ agent = "${env.AGENT_LABEL}";
 
 pipeline{
     agent{ node{label "${agent}"}}
-        // stages{
+        stages{
             stage("code checkout"){
                 steps{
                     echo "git clone"
@@ -25,5 +25,5 @@ pipeline{
                     // sh "sh scripts.sh"
                 }
             }
-    // }
+    }
 }​
