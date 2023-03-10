@@ -1,6 +1,5 @@
 import java.nio.file.Files
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
+import java.util.zip.*
 
 pipeline{
     agent { node { label "${env.AGENT_LABEL}"}}
