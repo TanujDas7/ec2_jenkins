@@ -17,7 +17,7 @@ pipeline{
         stage("ec2"){
             steps{
                 echo "write into ec2"
-                sh "scripts.sh"
+                sh "sh scripts.sh"
             }
         }
     }
