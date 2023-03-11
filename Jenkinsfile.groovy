@@ -20,8 +20,9 @@ pipeline{
                     echo "unzip files from utils"
                     script{
                         sh "cd utils"
-                        sh "chmod 400 mumbai.pem"
-                        sh "ssh -i mumbai.pem ec2-user@52.66.210.187"
+                        sh "ls -al"
+                        // sh "chmod 400 mumbai.pem"
+                        // sh "ssh -i mumbai.pem ec2-user@52.66.210.187"
                     }
                 }
             }
