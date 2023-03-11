@@ -21,6 +21,7 @@ pipeline{
                     sh script:'''
                     cd utils
                     chmod 400 mumbai.pem
+                    ls -al
                     ssh -i mumbai.pem ec2-user@52.66.210.187 -y
                     '''
                 }
