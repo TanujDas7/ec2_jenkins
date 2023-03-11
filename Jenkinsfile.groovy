@@ -19,13 +19,9 @@ pipeline{
                 steps{
                     echo "unzip files from utils"
                     script{
-                        sh "aws configure"
-                        sh "AKIAVLJKCWW2NQ27G4XK"
-                        sh "wrr2cu9upQBs/qJp45axHEkgAlprmpGsxcVh+QUA"
-                        sh "ap-south-1"
-                        sh "json"
-                        // sh "chmod 400 mumbai.pem"
-                        // sh "ssh -i mumbai.pem ec2-user@"
+                        sh "cd utils"
+                        sh "chmod 400 mumbai.pem"
+                        sh "ssh -i mumbai.pem ec2-user@52.66.210.187"
                     }
                 }
             }
