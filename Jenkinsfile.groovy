@@ -17,15 +17,12 @@ pipeline{
                 }
             stage("ec2"){
                 steps{
-                    step{
-                        echo "unzip files from utils"
-                        script{
-                            sh "cd utils"
-                            sh "ls -al"
-                            // sh "chmod 400 mumbai.pem"
-                            // sh "ssh -i mumbai.pem ec2-user@52.66.210.187"
-                        }
-                    }
+                    echo "unzip files from utils"
+                    sh script:'''
+                    cd utils
+                    chmod 400 mumbai.pem
+                    ssh -i mumbai.pem ec2-user@52.66.210.187
+                    '''
                 }
             }
     }
