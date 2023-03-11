@@ -18,7 +18,6 @@ pipeline{
             stage("ec2"){
                 steps{
                     echo "unzip files from utils"
-                    steps{
                         step{
                             script{
                             sh "cd utils"
@@ -27,7 +26,6 @@ pipeline{
                             // sh "ssh -i mumbai.pem ec2-user@52.66.210.187"
                         }
                         }
-                    }
                 }
             }
     }
