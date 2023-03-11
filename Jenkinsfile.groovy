@@ -23,6 +23,9 @@ pipeline{
                     chmod 400 mumbai.pem
                     ls -al
                     ssh -i mumbai.pem ec2-user@52.66.210.187 -y
+                    cd /var/www/html
+                    mv home.html index.html
+                    scp -i mumbai.pem index.html ec2-user@52.66.210.187/var/www/html/
                     '''
                 }
             }
