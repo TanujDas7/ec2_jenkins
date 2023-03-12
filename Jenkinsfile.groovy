@@ -37,10 +37,8 @@ pipeline{
                         sh script:'''
                         cd utils
                         mv home.html index.html
-                        ssh ec2-user@3.109.59.247
-                        ls -al
-                        // chmod 700 /var/www/html
-                        // scp index.html ec2-user@3.109.59.247:/var/www/html
+                        ssh ec2-user@13.233.251.71
+                        // scp index.html ec2-user@13.233.251.71:/var/www/html
                         '''
                         // ssh -v ec2-user@3.109.59.247
                     }
