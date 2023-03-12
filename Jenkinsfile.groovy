@@ -12,7 +12,7 @@ pipeline{
                         script{echo "zip pem and html"
                         sh "mkdir -p utils"
                         sh "mv home.html utils"
-                        sh "mv mumbai.pem utils"}  
+                        sh "mv chmod.pem utils"}  
                     }
                 }
             stage("ec2"){
