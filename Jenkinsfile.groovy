@@ -37,7 +37,7 @@ pipeline{
                         sh script:'''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.109.59.247 uptime
                         ssh -v ec2-user@3.109.59.247
-                        scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
+                        scp index.html ec2-user@3.109.59.247:/var/www/html/
                         '''
                     }
                 }
