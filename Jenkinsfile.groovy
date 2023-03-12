@@ -36,7 +36,7 @@ pipeline{
                     sshagent(credentials : ['3.109.59.247']) {
                         sh script:'''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.109.59.247 uptime
-                        ssh -v ec2-user@3.109.59.247
+                        // ssh -v ec2-user@3.109.59.247
                         scp index.html ec2-user@3.109.59.247:/var/www/html/
                         '''
                     }
