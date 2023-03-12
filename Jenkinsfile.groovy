@@ -37,9 +37,8 @@ pipeline{
                         sh script:'''
                         cd utils
                         mv home.html index.html
-                        ssh -o StrictHostKeyChecking=no ec2-user@13.234.66.18
-                        chmod 700 ec2-user@13.234.66.18:/var/www/html
-                        scp index.html ec2-user@13.234.66.18:/var/www/html
+                        ssh -o StrictHostKeyChecking=no ec2-user@13.233.24.34
+                        scp index.html ec2-user@13.233.24.34:/var/www/html
                         '''
                         // ssh -v ec2-user@3.109.59.247
                     }
