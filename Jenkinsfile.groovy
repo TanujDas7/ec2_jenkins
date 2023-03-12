@@ -27,10 +27,10 @@ pipeline{
                         cd utils
                         chmod 400 chmod.pem
                         ls -al
-                        ssh -i chmod.pem ec2-user@52.66.210.187 -y
+                        ssh -i chmod.pem ec2-user@3.109.59.247 -y
                         cd /var/www/html
                         mv home.html index.html
-                        scp -i chmod.pem index.html ec2-user@52.66.210.187/var/www/html/
+                        scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
                         '''
                     }
                 }
