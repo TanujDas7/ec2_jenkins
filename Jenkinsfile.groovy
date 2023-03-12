@@ -4,7 +4,7 @@ pipeline{
         stage('code checkout') {
             steps{
                 echo "git clone"
-                    git branch: 'master', credentialsId: 'd9571958-53a3-4fc3-b83a-d9807504e93d', url: 'https://github.com/TanujDas7/job.git'
+                    git branch: 'master', credentialsId: 'd9571958-53a3-4fc3-b83a-d9807504e93d', url: 'https://github.com/TanujDas7/ec2_jenkins.git'
             }
                 }
             stage("package"){
