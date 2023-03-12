@@ -17,19 +17,26 @@ pipeline{
                 }
             stage("ec2"){
                 steps{
-                    withCredentials([[
-                        $class:'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'aws',
-                        accessKeyVariable:'AWS_ACCESS_KEY_ID',
-                        secretKeyVariable:'AWS_SECRET_ACCESS_KEY',
-                    ]]){
+                    // withCredentials([[
+                    //     $class:'AmazonWebServicesCredentialsBinding',
+                    //     credentialsId: 'aws',
+                    //     accessKeyVariable:'AWS_ACCESS_KEY_ID',
+                    //     secretKeyVariable:'AWS_SECRET_ACCESS_KEY',
+                    // ]]){
+                    //     sh script:'''
+                    //     cd utils
+                    //     chmod 400 chmod.pem
+                    //     ls -al
+                    //     ssh -i chmod.pem ec2-user@3.109.59.247 -y
+                    //     cd /var/www/html
+                    //     mv home.html index.html
+                    //     scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
+                    //     '''
+                    // }
+                    sshagent(credentials : ['3.109.59.247']) {
                         sh script:'''
-                        cd utils
-                        chmod 400 chmod.pem
-                        ls -al
-                        ssh -i chmod.pem ec2-user@3.109.59.247 -y
-                        cd /var/www/html
-                        mv home.html index.html
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.109.59.247 uptime
+                        ssh -v ec2-user@3.109.59.247
                         scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
                         '''
                     }
