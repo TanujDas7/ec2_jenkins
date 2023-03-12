@@ -33,7 +33,7 @@ pipeline{
                     //     scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
                     //     '''
                     // }
-                    sshagent(credentials : ['ec2']) {
+                    sshagent(credentials : ['13.234.66.18']) {
                         sh script:'''
                         cd utils
                         mv home.html index.html
