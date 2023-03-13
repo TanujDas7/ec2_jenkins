@@ -12,7 +12,7 @@ pipeline{
                         sh script:''' 
                         echo "zip htmls in utils"
                         mkdir -p utils
-                        zip zipfile: 'utils.zip', archive: false, dir: 'templates'
+                        zip -r utils.zip templates
                         ''' 
                     }
                 }
@@ -21,6 +21,7 @@ pipeline{
                     sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
+                        sudo su
                         chmod 777 /var/www/html
                         '
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
