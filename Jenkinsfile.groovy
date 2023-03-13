@@ -29,7 +29,7 @@ pipeline{
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
                         '
-                        unzip -q /var/www/html/utils.zip -d .
+                        unzip /var/www/html/utils.zip -d .
                         '
                         '''
                     }
