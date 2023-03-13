@@ -9,10 +9,12 @@ pipeline{
                 }
             stage("package"){
                 steps{
-                        sh script:''' 
-                        echo "zip htmls in utils"
-                        zip -r utils.zip templates
-                        ''' 
+                        script {
+                            if (!fileExists('zipfile.zip')) {
+                                sh 'echo "zip htmls in utils"'
+                                sh 'zip -r zipfile.zip folder_to_zip'
+                        }
+                } 
                     }
                 }
             stage("ec2"){
@@ -20,12 +22,11 @@ pipeline{
                     sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
-                        sudo su - root
-                        chmod 777 /var/www/html
+                        sudo chmod o+w /var/www/html
                         '
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
-                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
-                        chmod 777 /var/www/html
+                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
+                        '
                         cd /var/www/html
                         unzip -q utils.zip -d .
                         '
