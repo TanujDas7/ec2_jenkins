@@ -26,6 +26,7 @@ pipeline{
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
                         sudo chmod o+w /var/www/html
                         cd /var/www/html
+                        ls
                         '
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
                         ssh -T -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
