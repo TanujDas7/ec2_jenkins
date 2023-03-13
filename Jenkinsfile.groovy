@@ -30,7 +30,7 @@ pipeline{
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
                         '
                         cd ..
-                        cat script.sh
+                        ls
                         '
                         '''
                     }
