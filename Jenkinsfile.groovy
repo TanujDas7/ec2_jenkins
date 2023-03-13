@@ -30,7 +30,6 @@ pipeline{
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
                         '
                         ls -al
-                        unzip /var/www/html/utils.zip -d .
                         '
                         '''
                     }
