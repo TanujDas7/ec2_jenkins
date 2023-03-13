@@ -11,10 +11,12 @@ pipeline{
                 steps{
                         script {
                             if (!fileExists('utils.zip')) {
-                                sh 'echo "zip htmls in utils"'
-                                sh 'zip -r zipfile.zip templates'
-                        }
-                } 
+                                sh script:'''
+                                echo "zip htmls in utils"
+                                cd templates && zip -r zipfile.zip *
+                                '''
+                            }
+                        } 
                     }
                 }
             stage("ec2"){
@@ -27,9 +29,8 @@ pipeline{
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
                         '
-                        cd /var/www/html
-                        ls -al
-                        unzip -q utils.zip -d .
+                        cd /var/www/html && ls -al
+                        // unzip -q utils.zip -d .
                         '
                         '''
                     }
