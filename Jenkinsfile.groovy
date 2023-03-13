@@ -10,9 +10,9 @@ pipeline{
             stage("package"){
                 steps{
                         script {
-                            if (!fileExists('zipfile.zip')) {
+                            if (!fileExists('utils.zip')) {
                                 sh 'echo "zip htmls in utils"'
-                                sh 'zip -r zipfile.zip folder_to_zip'
+                                sh 'zip -r zipfile.zip templates'
                         }
                 } 
                     }
