@@ -34,7 +34,7 @@ pipeline{
 
                         ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
                         cd /var/www/html
-                        ls
+                        unzip utils.zip -d .
                         '
 
                         '''
