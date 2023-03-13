@@ -27,7 +27,7 @@ pipeline{
                         sudo chmod o+w /var/www/html
                         '
                         scp utils.zip ec2-user@65.2.4.132:/var/www/html
-                        ssh -T -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
+                        ssh -t -o StrictHostKeyChecking=no ec2-user@65.2.4.132 
                         '
                         sudo su
                         yum update -y
