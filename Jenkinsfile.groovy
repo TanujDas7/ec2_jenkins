@@ -24,6 +24,10 @@ pipeline{
                     sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.109.181.165 '
+                        yum update -y
+                        yum install httpd -y
+                        service httpd start
+                        chkconfig httpd on
                         sudo chmod o+w /var/www/html
                         '
 
