@@ -23,16 +23,13 @@ pipeline{
                 steps{
                     sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
-
-                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.109.181.165 '
                         sudo chmod o+w /var/www/html
-                        cd /var/www/html
-                        ls
                         '
 
-                        scp utils.zip ec2-user@65.2.4.132:/var/www/html
+                        scp utils.zip ec2-user@3.109.181.165:/var/www/html
 
-                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.109.181.165 '
                         cd /var/www/html
                         unzip utils.zip -d .
                         '
