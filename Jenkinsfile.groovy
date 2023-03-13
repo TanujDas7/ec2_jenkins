@@ -13,7 +13,7 @@ pipeline{
                             if (!fileExists('utils.zip')) {
                                 sh script:'''
                                 echo "zip htmls in utils"
-                                cd templates && zip -r ./utils.zip *
+                                cd templates && zip -r ../utils.zip *
                                 '''
                             }
                         } 
