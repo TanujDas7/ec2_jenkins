@@ -23,7 +23,7 @@ pipeline{
                 steps{
                     sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
-                        ssh -o StrictHostKeyChecking=no ec2-user@3.109.181.165 '
+                        ssh -o StrictHostKeyChecking=no ec2-user@43.205.128.135 '
                         yum update -y
                         yum install httpd -y
                         service httpd start
@@ -31,9 +31,9 @@ pipeline{
                         sudo chmod o+w /var/www/html
                         '
 
-                        scp utils.zip ec2-user@3.109.181.165:/var/www/html
+                        scp utils.zip ec2-user@43.205.128.135:/var/www/html
 
-                        ssh -o StrictHostKeyChecking=no ec2-user@3.109.181.165 '
+                        ssh -o StrictHostKeyChecking=no ec2-user@43.205.128.135 '
                         cd /var/www/html
                         unzip utils.zip -d .
                         service httpd restart
