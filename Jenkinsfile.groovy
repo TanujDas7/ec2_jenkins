@@ -9,38 +9,27 @@ pipeline{
                 }
             stage("package"){
                 steps{
-                        script{echo "zip pem and html"
-                        sh "mkdir -p utils"
-                        sh "mv home.html utils"
-                        sh "mv chmod.pem utils"}  
+                        sh script:''' 
+                        echo "zip htmls in utils"
+                        mkdir -p utils
+                        zip zipfile: 'utils.zip', archive: false, dir: 'templates'
+                        ''' 
                     }
                 }
             stage("ec2"){
                 steps{
-                    // withCredentials([[
-                    //     $class:'AmazonWebServicesCredentialsBinding',
-                    //     credentialsId: 'aws',
-                    //     accessKeyVariable:'AWS_ACCESS_KEY_ID',
-                    //     secretKeyVariable:'AWS_SECRET_ACCESS_KEY',
-                    // ]]){
-                    //     sh script:'''
-                    //     cd utils
-                    //     chmod 400 chmod.pem
-                    //     ls -al
-                    //     ssh -i chmod.pem ec2-user@3.109.59.247 -y
-                    //     cd /var/www/html
-                    //     mv home.html index.html
-                    //     scp -i chmod.pem index.html ec2-user@3.109.59.247/var/www/html/
-                    //     '''
-                    // }
-                    sshagent(credentials : ['13.234.66.18']) {
+                    sshagent(credentials : ['ec2_demo3']) {
                         sh script:'''
-                        cd utils
-                        mv home.html index.html
-                        ssh -o StrictHostKeyChecking=no ec2-user@43.204.237.201
-                        scp index.html ec2-user@43.204.237.201:/var/www/html
+                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
+                        chmod 777 /var/www/html
+                        '
+                        scp utils.zip ec2-user@65.2.4.132:/var/www/html
+                        ssh -o StrictHostKeyChecking=no ec2-user@65.2.4.132 '
+                        chmod 777 /var/www/html
+                        cd /var/www/html
+                        unzip -q utils.zip -d .
+                        '
                         '''
-                        // ssh -v ec2-user@3.109.59.247
                     }
                 }
             }
