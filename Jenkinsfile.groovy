@@ -34,7 +34,7 @@ pipeline{
 
                         ssh -o StrictHostKeyChecking=no ec2-user@43.205.128.135 '
                         cd /var/www/html
-                        unzip utils.zip -d .
+                        unzip -o utils.zip -d .
                         sudo service httpd restart
                         '
 
